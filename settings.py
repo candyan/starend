@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('liuyan', 'liuyanhp@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -120,6 +120,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+TAOBAOAPI_PATH = "/Users/liuyan/Desktop/Graduation/starend/tbapi/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -6,7 +6,7 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^index', 'hogwarts.view.index'),
-
+    url(r'^api/getuser', 'apitest.view.getuser'),
     # Examples:
     # url(r'^$', 'starend.views.home', name='home'),
     # url(r'^starend/', include('starend.foo.urls')),
