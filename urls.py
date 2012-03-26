@@ -5,8 +5,10 @@ from django.conf.urls.defaults import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^index', 'hogwarts.view.index'),
-    url(r'^api/getuser', 'apitest.view.getuser'),
+    url(r'^index/$', 'hogwarts.view.index'),
+    url(r'^api/$', 'hogwarts.view.api'),
+    url(r'^api/getuser/$', 'apitest.view.getuser'),
+    url(r'^api/getshopinfo/$', 'apitest.view.getshopinfo'),
     # Examples:
     # url(r'^$', 'starend.views.home', name='home'),
     # url(r'^starend/', include('starend.foo.urls')),

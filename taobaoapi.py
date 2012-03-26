@@ -6,4 +6,4 @@ if settings.TAOBAOAPI_PATH:
     sys.path.insert(0, settings.TAOBAOAPI_PATH)
 
 from consts import *
-from base import *
+from base import TaobaoAPI

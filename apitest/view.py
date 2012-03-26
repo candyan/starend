@@ -4,20 +4,19 @@ from taobaoapi import *
 import urllib, urllib2, time, json
 
 def getuser(request):
-    params = {
-        'app_key': APP_KEY,
-        'fields': 'user_id',
-        'format': 'json',
-        'method': 'taobao.user.get',
-        'nick': 'liuyanhp',
-        'sign_method': 'md5',
-        'timestamp': time.strftime("%Y-%m-%d %H:%M:%S"),
-        'v': '2.0',
-    }
+    test_api = TaobaoAPI()
+    test_api.setMethod('taobao.user.get')
+    test_api.setNick('liuyanhp')
+    test_api.setFields('user_id,nick,seller_credit')
+    data = test_api.sendRequest(APP_SECRET)
+    data = json.loads(data)
+    data = data["user_get_response"]["user"]
+    return HttpResponse(data)
 
-    params['sign'] = taobao_sign(params, APP_SECRET)
-    args = urllib.urlencode(params)
-
-    url = "http://gw.api.tbsandbox.com/router/rest?" + args
-    url_open = urllib2.urlopen(url).read()
-    return HttpResponse(url_open)
+def getshopinfo(request):
+    test_api = TaobaoAPI()
+    test_api.setMethod('taobao.shop.get')
+    test_api.setNick('liuyan_test')
+    test_api.setFields('sid,cid,title,nick,desc,bulletin,pic_path,created,modified')
+    data = test_api.sendRequest(APP_SECRET)
+    return HttpResponse(data)
