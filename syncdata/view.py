@@ -10,3 +10,7 @@ def syncdb(request):
         "test_list": SYNC_DB_LIST,
     })
     return HttpResponse(t.render(c))
+
+def syncTaobaoUser(request):
+
+    return HttpResponse("hello")
