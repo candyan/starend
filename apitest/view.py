@@ -9,8 +9,8 @@ def getuser(request):
     test_api.setNick('liuyanhp')
     test_api.setFields('user_id,nick,seller_credit')
     data = test_api.sendRequest(APP_SECRET)
-    data = json.loads(data)
-    data = data["user_get_response"]["user"]
+    #data = json.loads(data)
+    #data = data["user_get_response"]["user"]
     return HttpResponse(data)
 
 def getshopinfo(request):
