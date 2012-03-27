@@ -6,9 +6,8 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^index/$', 'hogwarts.view.index'),
-    url(r'^api/$', 'hogwarts.view.api'),
-    url(r'^api/getuser/$', 'apitest.view.getuser'),
-    url(r'^api/getshopinfo/$', 'apitest.view.getshopinfo'),
+    url(r'^api/', include('apitest.urls')),
+    url(r'^syncdb/', include('syncdata.urls')),
     # Examples:
     # url(r'^$', 'starend.views.home', name='home'),
     # url(r'^starend/', include('starend.foo.urls')),

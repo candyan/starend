@@ -1,7 +1,15 @@
 #-*-coding:utf-8
+from django.template import loader, Context
 from django.http import HttpResponse
 from taobaoapi import *
 import urllib, urllib2, time, json
+
+def api(request):
+    t = loader.get_template('templates/test_list.html')
+    c = Context({
+        "test_list": API_TEST_LIST,
+    })
+    return HttpResponse(t.render(c))
 
 def getuser(request):
     test_api = TaobaoAPI()

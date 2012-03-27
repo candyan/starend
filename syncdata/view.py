@@ -4,8 +4,9 @@ from django.http import HttpResponse
 from taobaoapi import *
 import urllib, urllib2, time, json
 
-def index(requset):
-    t = loader.get_template('templates/index.html')
-    c = Context()
+def syncdb(request):
+    t = loader.get_template('templates/test_list.html')
+    c = Context({
+        "test_list": SYNC_DB_LIST,
+    })
     return HttpResponse(t.render(c))
-
