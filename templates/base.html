@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>{{tag_title}}</title>
+        {% block head %}{% endblock %}
+    </head>
+    <body onload="loads('{{current_item.stuff_status}}', '{{current_item.auto_fill}}', '{{current_item.item_type}}');">
+        {% block body%}{% endblock %}
+    </body>
+</html>

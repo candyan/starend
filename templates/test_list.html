@@ -1,0 +1,11 @@
+<ul>
+    {% for key,value in test_list.items %}
+        <li>
+            <a href="/{{value}}">{{key}}</a>
+        </li>
+    {% endfor %}
+    <li>
+        <a href="/index">back</a>
+    </li>
+</ul>
+

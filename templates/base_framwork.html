@@ -1,0 +1,32 @@
+{% extends "templates/base.html" %}
+
+{% block head %}
+    <script src="{{STATIC_URL}}js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/event_jq.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/starend_base.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/{{css_file}}" />
+{% endblock %}
+
+{% block body %}
+    <div class="top-nav">
+        <div class="bd">
+            <div class="top-nav-info">
+                <a href="{{shop_url}}" target="_blank">进入淘宝店铺</a>
+                <a href="http://127.0.0.1:8000/accounts">卖家{{user_name}}</a>
+                <a href="{{CALLBACK_URL}}">同步数据</a>
+                <a href="http://127.0.0.1:8000/accounts/logout">退出</a>
+            </div>
+            <div class="top-nav-item">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+        {% block wrapper %}{% endblock  %}
+        <div class="footer">
+            <div class="copyright">&copy2012 刘炎 华南理工大学 08级信息安全工程</div>
+        </div>
+    </div>
+{% endblock %}

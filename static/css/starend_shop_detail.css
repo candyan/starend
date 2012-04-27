@@ -1,0 +1,126 @@
+#shop-left-info {
+    width: 153px;
+    margin-right: 7px;
+    display: block;
+    float: left;
+}
+.shop-info {
+    font: 12px Arial,Helvetica,sans-serif; 
+    border: 1px dashed #D4D4D4;
+    margin-top: 10px;
+}
+.shop-info:first-child {
+    margin-top: 0px;
+}
+.shop-info-bottom {
+    background: #D4D4D4;
+    height: 5px;
+}
+.shop-info h3 {
+    font:14px Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    border-bottom: 1px solid #D4D4D4;
+    padding: 3px 0px 3px 10px;
+    margin: 0px;
+}
+.shop-info .shop-info-content {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.shop-info li {
+    font-size: 12px;
+}
+.shop-info-content .seller-cat-tree-root  a {
+    cursor: pointer;
+}
+.shop-info-content .seller-cat-tree-1 {
+    display: none;
+}
+.shop-info-content .seller-cat-block {
+    margin-left: 10px;
+}
+.shop-info-content td {
+    padding-top: 5px;
+}
+#shop-right-info {
+    width: 790px;
+    margin: 0 0 0 -160px;
+    float: right;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+#shop-right-info .shop-detail-desc {
+    border:1px dashed #D4D4D4;
+}
+#shop-right-info .shop-detail-desc h3, #shop-right-info .shop-detail-good h3 {
+    font-size: 14px;
+    margin-top: 0;
+    border-bottom: 1px solid #D4D4D4;
+    padding: 3px 0 3px 10px;
+}
+.shop-detail-desc .desc-content {
+    padding: 5px 10px;
+    height: 86px;
+}
+.shop-detail-good {
+    margin-top: 10px;
+    border: 1px dashed #D4D4D4;
+    float: left;
+    width: 788px;
+}
+.shop-detail-good .bd {
+    width: 788px;
+    padding: 5px 10px;
+}
+.one-item {
+    width: 150px;
+    text-align: center;
+    float: left;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+#shop-right-info p {
+    font-size: 12px;
+}
+.one-item p {
+    line-height: 18px;
+}
+.one-item img {
+    height: 124px;
+    width: 124px;
+    border: none;
+}
+.one-item .info-detail {
+    color: #888;
+}
+.one-item .item-price {
+    color: #F50;
+    font-size: 14px;
+    font-weight: bold;
+}
+.shop-detail-good .shop-info-page-index {
+    clear: both;
+    width: 790px;
+    text-align: center;
+}
+.shop-page-index {
+    font: 14px Arial,Helvetica,sans-serif;
+    color: #AAA;
+    margin: 20px 0;
+    line-height: 150%;
+    text-align: center;
+}
+.shop-page-index .prev {
+    margin-right: 20px;
+}
+.shop-page-index .next {
+    margin-left: 20px;
+}
+.shop-page-index .this-page {
+    color: white;
+    background: #83BF73;
+}
+.shop-page-index a, .this-page, .break {
+    padding: 0 4px;
+    margin: 2px;
+}

@@ -1,12 +1,13 @@
 from django.conf.urls.defaults import patterns, include, url
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^index/$', 'hogwarts.view.index'),
-    url(r'^api/', include('apitest.urls')),
+    url(r'^shop/', include('hogwarts.shop.urls')),
+    url(r'^item/', include('hogwarts.item.urls')),
     url(r'^syncdb/', include('syncdata.urls')),
     # Examples:
     # url(r'^$', 'starend.views.home', name='home'),
@@ -19,3 +20,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     #url(r'^admin/', include(admin.site.urls)),
 )
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()

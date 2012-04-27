@@ -1,0 +1,133 @@
+{% extends "templates/base_framwork.html" %}
+
+{% block wrapper %}
+    <div class="bd">
+        <div id="shop-right-info">
+            <div class="shop-detail-desc">
+                <h3>店铺简介</h3>
+                <div class="desc-content">{{shop_desc}}</div>
+                <div class="shop-info-bottom"></div>
+            </div>
+            <div class="shop-detail-good">
+                <h3>宝贝列表</h3>
+                <div class="bd">
+                    {% for item in shop_item_list %}
+                    <div class="one-item">
+                        <p>
+                            <a target="blank" href="{{item.detail_url}}"><img src="{{item.pic_url}}"></a>        
+                        </p>
+                        <p>
+                            <a target="blank" href="{{item.detail_url}}">{{item.title}}</a>
+                        </p>
+                        <p>
+                            <span class="info-detail">{{item.item_type}} ￥</span>
+                            <span class="item-price">{{item.price}}</span>
+                        </p>
+                        <p>
+                            <span class="info-detail">宝贝数量: </span>
+                            <span class="info-detail">{{item.num}}</span>
+                        </p>
+                        <p>
+                            <span class="item-edit">{{item.approve_status}}</span>
+                            <span class="item-edit">
+                                <a href="{{item_url}}update/{{item.num_iid}}">修改</a>
+                            </span>
+                            <span class="item-edit">
+                                <a class="a_confirm_link" href="{{item_url}}del/{{item.num_iid}}">删除</a>
+                            </span>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="shop-page-index">
+                    {% ifequal current_page 1 %}
+                    <span class="prev">&lt前页</span>
+                    {% else %}
+                    <span class="prev">
+                        <link rel="prev" href="{{shop_detail_url}}{{seller_cid}}/{{prev_page}}">
+                        <a href="{{shop_detail_url}}{{seller_cid}}/{{prev_page}}">&lt前页</a>
+                    </span>
+                    {% endifequal %}
+                    {% for page in page_list %}
+                        {% ifequal page current_page %}
+                        <span class="this-page">{{page}}</span>
+                        {% else %}
+                        <a href="{{shop_detail_url}}{{seller_cid}}/{{page}}">{{page}}</a>
+                        {% endifequal %}
+                    {% endfor %}
+                    {% ifequal current_page page_count %}
+                        <span class="next">&gt后页</span>
+                    {% else %}
+                        <link rel="next" href="{{shop_detail_url}}{{seller_cid}}/{{next_page}}">
+                        <a href="{{shop_detail_url}}{{seller_cid}}/{{next_page}}">&gt后页</a>
+                    {% endifequal %}
+                </div>
+                <div class="shop-info-bottom"></div>
+            </div>
+        </div>
+        <div id="shop-left-info">
+            <div class="shop-info">
+                <h3>店铺信息</h3>
+                <div class="shop-info-content">
+                    <ul>
+                    {% for info in shop_info_list %}
+                        <li>{{info.0}}: {{info.1}}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div class="shop-info-bottom"></div>
+            </div>
+            <div class="shop-info">
+                <h3>店铺公告</h3>
+                <div class="shop-info-content">
+                    <ul>
+                        <li>{{bullet}}</li>
+                    </ul>
+                </div>
+                <div class="shop-info-bottom"></div>
+            </div>
+            <div class="shop-info">
+                <h3>店铺类目</h3>
+                <div class="shop-info-content">
+                    <p>
+                        <a href="{{shop_detail_url}}" >查看所有宝贝&gt&gt</a>
+                    </p>
+                    <table>
+                        <tbody>
+                            {% for key,value in seller_cat_tree.items %}
+                            <tr>
+                                <td>
+                                    {% if value.childs %}
+                                    <div class="seller-cat-tree-root" onClick="show_child({{forloop.counter}})">
+                                        <span class="seller-cat-block"><span>
+                                        <a>{{value.cat_name}}</a>
+                                    </div>
+                                    <div id="child_{{forloop.counter}}" class="seller-cat-tree-1">
+                                    {% for cat in value.childs %}
+                                    {% if cat.childs %}
+                                    {% else %}
+                                    <div>
+                                        <span class="seller-cat-block"><span>
+                                        <span class="seller-cat-block"><span>
+                                        <a href="{{shop_detail_url}}{{cat.cid}}">{{cat.cat_name}}</a>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    <div class="seller-cat-tree-end">
+                                        <span class="seller-cat-block"><span>
+                                        <a href="{{shop_detail_url}}{{key}}">{{value.cat_name}}</a>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="shop-info-bottom"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

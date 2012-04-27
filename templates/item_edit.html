@@ -1,0 +1,80 @@
+{% extends "templates/base_framwork.html" %}
+
+{% block wrapper %}
+    <div class="bd">
+        <div id="item-info">
+            <div id="item-base-info">
+                <h3>基本信息</h3>
+                <div class="item-attr-col">
+                    <p>宝贝名称: </p>
+                    <input type="text" id="item-name-text" value="{{current_item.title}}"></input>
+                </div>
+                <div class="item-attr-col">
+                    <p>店铺类目: </p>
+                    <form>
+                        <select class="item-down-list" name="select_cat">
+                        </select>
+                    </form>
+                </div>
+                <div class="item-attr-col">
+                    <div class="item-stuff">
+                        <p>新旧程度: </p>
+                        <form>
+                            <select class="item-down-list">
+                                <option id="new" value="new">全新</option>
+                                <option id="second" value="second">二手</option>
+                                <option id="unused" value="unused">闲置</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="item-count">
+                        <p>数量: </p>
+                        <input type="text" id="item-count-text" value="{{current_item.num}}"></input>
+                    </div>
+                </div>
+                <div class="item-attr-col">
+                    <p>代充类型: </p>
+                    <form>
+                        <select id="item-auto-fill-list">
+                            <option></option>
+                            <option id="time_card" value="time_card">点卡软件代充</option>
+                            <option id="fee_card" value="fee_card">话费软件代充</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="item-info-buttom"></div>
+            </div>
+            <div id="item-price-info">
+                <h3>价格信息</h3>
+                <div class="item-attr-col">
+                    <div id="price-type">
+                        <p>出价方式: </p>
+                        <form>
+                            <select class="item-down-list">
+                                <option id="fixed" value="fixed">一口价</option>
+                                <option id="auction" value="auction">拍卖</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div id="price-num">
+                        <p>价格: </p>
+                        <input type="text" value="{{current_item.price}}"></input>
+                    </div>
+                </div>
+                <div class="item-attr-col">
+                    <p>返点比例: </p>
+                    <input type="text" value="{{current_item.auction_point}}"></input>
+                </div>
+                <div class="item-info-buttom"></div>
+            </div>
+            <div id="item-time-info">
+                <h3>时效信息</h3>
+                <div class="item-info-buttom"></div>
+            </div>
+            <div id="item-delivery-info">
+                <h3>物流信息</h3>
+                <div class="item-info-buttom"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

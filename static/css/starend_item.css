@@ -1,0 +1,63 @@
+#item-info {
+    width: 65%;
+    margin-right: 7px;
+    float: left;
+}
+#item-base-info, #item-price-info, #item-time-info, #item-delivery-info {
+    border:1px dashed #D4D4D4;
+    margin-top: 10px;
+    font: 12px Arial,Helvetica,sans-serif;
+}
+#item-info h3 {
+   font: 14px Arial,Helvetica,sans-serif;
+   font-weight: bold;
+   color: #666;
+   border-bottom: 1px solid #D4D4D4;
+   padding: 3px 0 3px 10px;
+   margin: 0;
+}
+.item-info-buttom {
+    background: #E9EEF2;
+    height: 5px;
+    margin-top: 10px;
+}
+#item-info .item-attr-col {
+    margin-top: 10px;
+    margin-left: 15px;
+    overflow: auto;
+}
+.item-attr-col p {
+    font: 12px;
+    margin-top: 3px;
+    line-height: 125%;
+    float: left;
+}
+#item-info input {
+    font: 12px Arial,Helvetica;
+    text-align: center;
+    margin-left: 5px;
+    height: 14px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #D4D4D4;
+}
+#item-info #item-name-text {
+    width: 480px;
+}
+#item-info .item-down-list, #item-info #item-auto-fill-list {
+    margin-left: 10px;
+}
+#item-info #item-count-text {
+    width: 40px;
+}
+.item-stuff {
+    float: left;
+    width: 200px;
+}
+#item-price-info #price-type {
+    float: left;
+    width: 200px;
+}
+#item-price-info #price-num input {
+    width: 100px;
+}

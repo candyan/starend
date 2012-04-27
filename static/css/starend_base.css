@@ -1,0 +1,56 @@
+html {
+    color:#111;
+    background:#fff;
+}
+body {
+    font:12px Arial,Helvetica,sans-serif;
+    line-height:162%;
+}
+div, span, p, img, ul, li, th, td, h3 select, form, input{
+    margin: 0;
+    padding: 0;
+}
+ul {
+    line-height: 24px;
+    font-size: 14px;
+}
+li {
+    list-style: none;
+}
+a:link {
+    color: #369;
+    text-decoration: none;
+}
+.top-nav {
+    clear: both;
+    width: 100%;
+    color: #D4D4D4;
+    margin-bottom: 20px;
+    height: 30px;
+    border-bottom: 1px dashed #D4D4D4;
+}
+.bd {
+    width: 950px;
+    margin: auto;
+    overflow: auto;
+}
+.top-nav-info {
+    float: right;
+    margin-top: 5px
+}
+.top-nav-info a{
+   margin-left: 10px;
+}
+.top-nav-info a:link {
+    color: #219A44;
+    text-decoration: none;
+}
+.footer {
+    margin-top: 10px;
+    width:100%;
+    color:#999;
+}
+.copyright {
+    text-align:center;
+    margin:0 auto;
+}
