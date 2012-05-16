@@ -1,10 +1,10 @@
 {% extends "templates/base.html" %}
 
 {% block head %}
-    <script src="{{STATIC_URL}}js/jquery.min.js"></script>
-    <script src="{{STATIC_URL}}js/event_jq.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/starend_base.css" />
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/{{css_file}}" />
+    <script src="{{STATIC_URL}}jquery.min.js"></script>
+    <script src="{{STATIC_URL}}event_jq.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}starend_base.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}{{css_file}}" />
 {% endblock %}
 
 {% block body %}
@@ -12,12 +12,18 @@
         <div class="bd">
             <div class="top-nav-info">
                 <a href="{{shop_url}}" target="_blank">进入淘宝店铺</a>
-                <a href="http://127.0.0.1:8000/accounts">卖家{{user_name}}</a>
+                <a href="">卖家{{user_name}}</a>
                 <a href="{{CALLBACK_URL}}">同步数据</a>
-                <a href="http://127.0.0.1:8000/accounts/logout">退出</a>
+                <a href="{{base_url}}accounts/logout">退出</a>
             </div>
             <div class="top-nav-item">
                 <ul>
+                    <li>
+                        <a href="{{base_url}}shop/detail/">店铺详情</a>
+                    </li>
+                    <li>
+                        <a href="{{base_url}}trade/detail/">查看订单</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -8,7 +8,9 @@ from django.conf import settings
 urlpatterns = patterns('',
     url(r'^shop/', include('hogwarts.shop.urls')),
     url(r'^item/', include('hogwarts.item.urls')),
+    url(r'^trade/', include('hogwarts.trade.urls')),
     url(r'^syncdb/', include('syncdata.urls')),
+    
     # Examples:
     # url(r'^$', 'starend.views.home', name='home'),
     # url(r'^starend/', include('starend.foo.urls')),

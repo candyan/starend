@@ -17,9 +17,10 @@ def syncdb(request):
         result_items = sync_items_data(session, result_user[1])
         result_auth = sync_auth_data(session, result_user[1])
         result_seller_cat = sync_seller_cat(result_user[1])
+        result_trades = sync_trades(session, result_user[1])
         request.session['user_name'] = result_user[1]
         request.session['top_session'] = session
-        result = result_user and result_shop and result_items and result_auth and result_seller_cat
+        result = result_user and result_shop and result_items and result_auth and result_seller_cat and result_trades
         if result:
             t = loader.get_template('templates/sync_data.html')
             c = Context({

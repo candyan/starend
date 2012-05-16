@@ -60,8 +60,7 @@ MEDIA_URL = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
+STATIC_URL = '/static/' if DEBUG else 'http://127.0.0.1/'
 STATIC_LINK = '127.0.0.1:8000/static/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
@@ -106,7 +105,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'starend.urls'
 
 TEMPLATE_DIRS = (
-    '.'
+    '/Users/liuyan/Desktop/Graduation/starend/',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -126,7 +125,11 @@ INSTALLED_APPS = (
 )
 
 TAOBAOAPI_PATH = "/Users/liuyan/Desktop/Graduation/starend/tbapi/"
-HOST_URL = "http://127.0.0.1:8000/"
+if DEBUG:
+    HOST_URL = "http://127.0.0.1:8000/"
+else:
+    HOST_URL = "http://127.0.0.1/"
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

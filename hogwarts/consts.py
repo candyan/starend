@@ -3,3 +3,4 @@ from django.conf import settings
 
 ITEM_URL = settings.HOST_URL + "item/"
 SHOP_DETAIL_URL = settings.HOST_URL + "shop/detail/"
+TRADE_URL = settings.HOST_URL + "trade/"

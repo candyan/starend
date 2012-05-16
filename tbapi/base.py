@@ -2,41 +2,8 @@
 from consts import *
 import hashlib, time, urllib, urllib2, json
 
-def taobao_sign(params, secret):
-    keys = params.keys()
-    keys.sort()
-    hashchars = secret + ''.join([x + params[x] for x in keys]) + secret
-    return hashlib.md5(hashchars).hexdigest().upper()
 
-def read_taobao_response(res_dict):
-    if 'user_get_response' in res_dict.keys():
-        return res_dict['user_get_response']['user']
-    elif 'shop_get_response' in res_dict.keys():
-        return res_dict['shop_get_response']['shop']
-    elif 'items_get_response' in res_dict.keys():
-        count = res_dict['items_get_response']['total_results']
-        return res_dict['items_get_response']['items']['item'] if count > 0 else []
-    elif 'items_onsale_get_response' in res_dict.keys():
-        count = res_dict['items_onsale_get_response']['total_results']
-        return res_dict['items_onsale_get_response']['items']['item'] if count > 0 else []
-    elif 'items_inventory_get_response' in res_dict.keys():
-        count = res_dict['items_inventory_get_response']['total_results']
-        return res_dict['items_inventory_get_response']['items']['item'] if count > 0 else []
-    elif 'items_list_get_response' in res_dict.keys():
-        return res_dict['items_list_get_response']['items']['item']
-    elif 'itemcats_authorize_get_response' in res_dict.keys():
-        return res_dict['itemcats_authorize_get_response']['seller_authorize']
-    elif 'sellercats_list_get_response' in res_dict.keys():
-        if 'seller_cats' in res_dict['sellercats_list_get_response'].keys():
-            return res_dict['sellercats_list_get_response']['seller_cats']['seller_cat']
-        else:
-            return []
-    elif 'error_response' in res_dict.keys():
-        return res_dict['error_response']['msg']
-    else:
-        return ""
-
-def call_taobao_api(method, fields=False, session=False, num_iid=False, nick=False, page_size=False, num_iids=False, nicks=False):
+def call_taobao_api(method, fields=False, session=False, num_iid=False, nick=False, page_size=False, num_iids=False, nicks=False, page_no=False):
     taobao_api = TaobaoAPI()
     if session:
         taobao_api.setSession(session)
@@ -52,9 +19,10 @@ def call_taobao_api(method, fields=False, session=False, num_iid=False, nick=Fal
         taobao_api.setFields(fields)
     if page_size:
         taobao_api.setPageSize(page_size)
+    if page_no:
+        taobao_api.setPageNo(page_no)
     taobao_api.setMethod(method)
-    data = taobao_api.sendRequest(APP_SECRET)
-    return json.loads(data)
+    return taobao_api.sendRequest()
 
 class TaobaoAPI:
     def __init__(self):
@@ -97,9 +65,48 @@ class TaobaoAPI:
     def setNum_iid(self, num_iid):
         self.params['num_iid'] = num_iid
 
-    def sendRequest(self, secret):
-        self.params['sign'] = taobao_sign(self.params, APP_SECRET)
+    def taobao_sign(self):
+        keys = self.params.keys()
+        keys.sort()
+        hashchars = APP_SECRET + ''.join([x + self.params[x] for x in keys]) + APP_SECRET
+        return hashlib.md5(hashchars).hexdigest().upper()
+
+    def read_taobao_response(self, res_dict):
+        if 'user_get_response' in res_dict.keys():
+            return res_dict['user_get_response']['user']
+        elif 'shop_get_response' in res_dict.keys():
+            return res_dict['shop_get_response']['shop']
+        elif 'items_get_response' in res_dict.keys():
+            count = res_dict['items_get_response']['total_results']
+            return res_dict['items_get_response']['items']['item'] if count > 0 else []
+        elif 'items_onsale_get_response' in res_dict.keys():
+            count = res_dict['items_onsale_get_response']['total_results']
+            return res_dict['items_onsale_get_response']['items']['item'] if count > 0 else []
+        elif 'items_inventory_get_response' in res_dict.keys():
+            count = res_dict['items_inventory_get_response']['total_results']
+            return res_dict['items_inventory_get_response']['items']['item'] if count > 0 else []
+        elif 'items_list_get_response' in res_dict.keys():
+            return res_dict['items_list_get_response']['items']['item']
+        elif 'itemcats_authorize_get_response' in res_dict.keys():
+            return res_dict['itemcats_authorize_get_response']['seller_authorize']
+        elif 'sellercats_list_get_response' in res_dict.keys():
+            if 'seller_cats' in res_dict['sellercats_list_get_response'].keys():
+                return res_dict['sellercats_list_get_response']['seller_cats']['seller_cat']
+            else:
+                return []
+        elif 'trades_sold_get_response' in res_dict.keys():
+            count = res_dict['trades_sold_get_response']['total_results']
+            has_next = True if 'has_next' in res_dict['trades_sold_get_response'] else False
+            return res_dict['trades_sold_get_response']['trades']['trade'], has_next if count > 0 else [], has_next
+        elif 'error_response' in res_dict.keys():
+            return res_dict['error_response']['msg']
+        else:
+            return ""
+
+    def sendRequest(self):
+        self.params['sign'] = self.taobao_sign()
         args_url = urllib.urlencode(self.params)
         url = API_URL + '?' + args_url
         url_open = urllib2.urlopen(url).read()
-        return url_open
+        response_data = json.loads(url_open)
+        return self.read_taobao_response(response_data)

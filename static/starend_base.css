@@ -12,7 +12,7 @@ div, span, p, img, ul, li, th, td, h3 select, form, input{
 }
 ul {
     line-height: 24px;
-    font-size: 14px;
+    font-size: 12px;
 }
 li {
     list-style: none;
@@ -28,6 +28,18 @@ a:link {
     margin-bottom: 20px;
     height: 30px;
     border-bottom: 1px dashed #D4D4D4;
+}
+.top-nav li, .top-nav li a:link {
+    color: #219A44;
+    font-weight: 800;
+}
+.top-nav-item {
+    font-size: 12px;
+}
+.top-nav-item li {
+    float: left;
+    display: inline;
+    margin: 2px 20px 0 0;
 }
 .bd {
     width: 950px;
@@ -53,4 +65,25 @@ a:link {
 .copyright {
     text-align:center;
     margin:0 auto;
+}
+.page-index {
+    font: 14px Arial,Helvetica,sans-serif;
+    color: #AAA;
+    margin: 20px 0;
+    line-height: 150%;
+    text-align: center;
+}
+.page-index .prev {
+    margin-right: 20px;
+}
+.page-index .next {
+    margin-left: 20px;
+}
+.page-index .this-page {
+    color: white;
+    background: #83BF73;
+}
+.page-index a, .this-page, .break {
+    padding: 0 4px;
+    margin: 2px;
 }

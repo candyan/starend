@@ -40,6 +40,7 @@ def shop_detail(request, seller_cid, current_page):
             'tag_title': "店铺详情",
             'CALLBACK_URL': CALLBACK_URL,
             'user_name':current_user.user_name,
+            'base_url': settings.HOST_URL,
             'STATIC_URL': settings.STATIC_URL,
             'css_file': 'starend_shop_detail.css',
             'shop_info_list': shop_info_list,

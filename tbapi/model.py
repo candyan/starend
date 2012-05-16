@@ -17,8 +17,7 @@ class TaobaoUser:
         r = store.execute("select * from taobao_user where user_id=%s", user_id)
         if r:
             return TaobaoUser(*r[0])
-        else:
-            return False
+        return False
 
     @classmethod
     def gets(cls, user_ids):
@@ -29,8 +28,7 @@ class TaobaoUser:
         r = store.execute("select * from taobao_user where user_name=%s", user_name)
         if r:
             return TaobaoUser(*r[0])
-        else:
-            return False
+        return False
 
 class TaobaoShop:
     def __init__(self, sid, cid, user_name, title, shop_desc, bulletin, pic_path, shop_score_item, shop_score_service, shop_score_delivery):
@@ -51,8 +49,7 @@ class TaobaoShop:
         r = store.execute("select * from taobao_shop where user_name=%s", user_name)
         if r:
             return TaobaoShop(*r[0])
-        else:
-            return False
+        return False
 
 class TaobaoItem:
     def __init__(self, num_iid, detail_url, title, user_name, item_type, item_desc, auction_point, property_alias, cid, seller_cid, pic_url, item_num, valid_thru, list_time, delist_time, stuff_status, price, post_fee, express_fee, ems_fee, has_discount, freight_payer, approve_status, auto_fill):
@@ -88,8 +85,7 @@ class TaobaoItem:
         r = store.execute("select * from taobao_items where num_iid=%s", num_iid)
         if r:
             return TaobaoItem(*r[0])
-        else:
-            return False
+        return False
     
     @classmethod
     def gets(cls, num_iids):
@@ -103,8 +99,7 @@ class TaobaoItem:
             for item in r:
                 num_iids.append(item[0])
             return cls.gets(num_iids)
-        else:
-            return []
+        return []
 
     @staticmethod
     def filter_items_by_seller_cid(item_list, seller_cid):
@@ -131,8 +126,7 @@ class TaobaoSellerCat:
         r = store.execute("select cid,parent_cid,name,sort_order,cat_type,pic_url from taobao_seller_cat where cid=%s", cid)
         if r:
             return TaobaoSellerCat(*r[0])
-        else:
-            return False
+        return False
 
     @classmethod
     def gets(cls, cids):
@@ -146,8 +140,7 @@ class TaobaoSellerCat:
             for item in r:
                 cids.append(item[0])
             return cls.gets(cids)
-        else:
-            return []
+        return []
 
     @staticmethod
     def create_seller_cat_tree(seller_cat_list):
@@ -171,3 +164,43 @@ class TaobaoSellerCat:
             if root_dict[cat].childs:
                 root_dict[cat].childs.sort(key=lambda x:x.sort_order)
         return root_dict
+
+class TaobaoTrade:
+    def __init__(self, tid, num, num_iid, status, title, buyer_name, trade_type, price, point_fee, create_time, pay_time, end_time, payment, consign_time, buyer_message, post_fee):
+        self.tid = tid
+        self.num = num
+        self.item = TaobaoItem.get(num_iid)
+        self.status = TRADE_STATUS[status]
+        self.title = title
+        self.buyer_name = buyer_name
+        self.trade_type = trade_type
+        self.price = price
+        self.point_fee = point_fee
+        self.create_time = create_time
+        self.pay_time = pay_time
+        self.end_time = end_time
+        self.payment = payment
+        self.consign_time = consign_time
+        self.buyer_message = buyer_message
+        self.post_fee = post_fee
+
+    @classmethod
+    def get(cls, tid):
+        r = store.execute("select tid,num,num_iid,status,title,buyer_name,trade_type,price,point_fee,create_time,pay_time,end_time,payment,consign_time,buyer_message,post_fee from taobao_trades where tid=%s", tid)
+        if r:
+            return TaobaoTrade(*r[0])
+        return False
+
+    @classmethod
+    def gets(cls, tids):
+        return [cls.get(tid) for tid in tids]
+
+    @classmethod
+    def get_by_username(cls, user_name):
+        r = store.execute("select tid from taobao_trades where user_name=%s", user_name)
+        if r:
+            tids = []
+            for item in r:
+                tids.append(item[0])
+            return cls.gets(tids)
+        return []

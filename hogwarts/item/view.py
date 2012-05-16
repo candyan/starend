@@ -18,6 +18,7 @@ def item_update(request, num_iid):
             'tag_title': "修改物品",
             'CALLBACK_URL': CALLBACK_URL,
             'user_name': current_user_name,
+            'base_url': settings.HOST_URL,
             'STATIC_URL': settings.STATIC_URL,
             'css_file': 'starend_item.css',
             'current_item': current_item,

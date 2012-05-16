@@ -1,0 +1,72 @@
+{% extends "templates/base_framwork.html" %}
+
+{% block wrapper %}
+    <div class="bd">
+        <div id=""></div>
+        <div id="trade-title">
+            <div id="baobei">宝贝</div>
+            <div id="price">单价</div>
+            <div id="num">数量</div>
+            <div id="payment">实际付款</div>
+            <div id="status">交易状态</div>
+        </div>
+        {% for trade in current_trade_list %}
+        <div class="trade-item">
+            <div class="trade-item-title">
+                <div class="trade-item-title-detail">订单编号: {{trade.tid}}</div>
+                <div class="trade-item-title-detail">成交时间：{{trade.create_time}}</div>
+                 <div class="trade-item-title-detail">买家: {{trade.buyer_name}}</div>
+            </div>
+            <div class="trade-item-content">
+                <div class="trade-item-baobei">
+                    <div class="trade-item-pic">
+                        <a target="blank" href="{{trade.item.detail_url}}"><img src="{{trade.item.pic_url}}"></img></a>
+                    </div>
+                    <div class="trade-itme-name">                      
+                        <a target="blank" href="{{trade.item.detail_url}}">{{trade.item.title}}</a>
+                    </div>
+                </div>
+                <div class="trade-item-part-detail">
+                    <p>￥ {{trade.item.price}}</p>
+                </div>
+                <div class="trade-item-part-detail">
+                    <p>{{trade.num}}</p>
+                </div>
+                <div class="trade-item-part-detail">
+                    <span class="soild-num">￥{{trade.payment}}</span>
+                    <div>(含 邮费:  <span class="soild-num">￥{{trade.post_fee}}</span>)</div>
+                </div>
+                <div class="trade-item-part-detail">
+                    <span class="soild-status">{{trade.status}}</span>
+                    <div>
+                        <a href="{{trade_base_url}}{{trade.tid}}">订单详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="page-index">
+            {% ifequal current_page 1 %}
+            <span class="prev">&lt前页</span>
+            {% else %}
+            <span class="prev">
+                <link rel="prev" href="{{trade_base_url}}detail/{{prev_page}}">
+                <a href="{{trade_base_url}}detail/{{prev_page}}">&lt前页</a>
+            </span>
+            {% endifequal %}
+            {% for page in page_list %}
+                {% ifequal page current_page %}
+                <span class="this-page">{{page}}</span>
+                {% else %}
+                <a href="{{trade_base_url}}detail/{{page}}">{{page}}</a>
+                {% endifequal %}
+                {% endfor %}
+                {% ifequal current_page page_count %}
+                <span class="next">&gt后页</span>
+            {% else %}
+                <link rel="next" href="{{trade_base_url}}detail/{{next_page}}">
+                <a href="{{trade_base_url}}detail/{{next_page}}">&gt后页</a>
+            {% endifequal %}
+        </div>
+    </div>
+{% endblock %}

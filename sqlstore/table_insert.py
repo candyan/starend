@@ -118,3 +118,14 @@ def taobao_seller_cat_insert(store_list):
         return True
     else:
         return False
+
+def taobao_trades_insert(store_list):
+    sql_del = "delete from taobao_trades where user_name=%s"
+    user_name = store_list[0][-1]
+    res_del = store.execute(sql_del, user_name)
+    sql_insert = "insert into taobao_trades value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    res_insert = store.executemany(sql_insert, store_list)
+    if res_insert == len(store_list):
+        return True
+    else:
+        return False

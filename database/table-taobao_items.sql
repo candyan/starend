@@ -6,7 +6,7 @@ CREATE TABLE `taobao_items`(
     `title` varchar(60) NOT NULL,
     `user_name` varchar(20) NOT NULL,
     `item_type` varchar(8),
-    `item_desc` varchar(25000),
+    `item_desc` MEDIUMTEXT,
     `auction_point` int(11) unsigned,
     `property_alias` varchar(512),
     `cid` bigint(20) unsigned,

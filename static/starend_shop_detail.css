@@ -98,29 +98,3 @@
     font-size: 14px;
     font-weight: bold;
 }
-.shop-detail-good .shop-info-page-index {
-    clear: both;
-    width: 790px;
-    text-align: center;
-}
-.shop-page-index {
-    font: 14px Arial,Helvetica,sans-serif;
-    color: #AAA;
-    margin: 20px 0;
-    line-height: 150%;
-    text-align: center;
-}
-.shop-page-index .prev {
-    margin-right: 20px;
-}
-.shop-page-index .next {
-    margin-left: 20px;
-}
-.shop-page-index .this-page {
-    color: white;
-    background: #83BF73;
-}
-.shop-page-index a, .this-page, .break {
-    padding: 0 4px;
-    margin: 2px;
-}

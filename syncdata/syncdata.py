@@ -6,8 +6,8 @@ import json
 def sync_user_data(session):
     user_method = 'taobao.user.get'
     user_fields = 'user_id,nick,location,seller_credit'
-    res_data = call_taobao_api(user_method, fields=user_fields, session=session)
-    dict_data = read_taobao_response(res_data)
+    dict_data = call_taobao_api(user_method, fields=user_fields, session=session)
+    #dict_data = read_taobao_response(res_data)
     if dict_data in ERROR_LIST.keys():
         return ERROR_LIST[dict_data]
     sqlstore_list = [
@@ -26,8 +26,8 @@ def sync_user_data(session):
 def sync_shop_data(nick):
     shop_method = 'taobao.shop.get'
     shop_fields = 'sid,cid,title,nick,desc,bulletin,pic_path,shop_score'
-    res_data = call_taobao_api(shop_method, fields=shop_fields, nick=nick)
-    dict_data = read_taobao_response(res_data)
+    dict_data = call_taobao_api(shop_method, fields=shop_fields, nick=nick)
+    #dict_data = read_taobao_response(res_data)
     sqlstore_list = [
         dict_data["sid"],
         dict_data["cid"],
@@ -44,23 +44,11 @@ def sync_shop_data(nick):
     return result
 
 def get_items_list(session, nick):
-    #onsale_method = 'taobao.items.onsale.get'
     page_size = '100'
-    #onsale_fields = 'num_iid'
-    #res_dict_onsale = call_taobao_api(onsale_method, onsale_fields, session=session, page_size=page_size) 
-    #item_list_onsale = read_taobao_response(res_dict_onsale)
-    
-    #inv_method = 'taobao.items.inventory.get'
-    #inv_fields = 'num_iid'
-    #res_dict_inv = call_taobao_api(inv_method, inv_fields, session=session, page_size=page_size)
-    #item_list_inv = read_taobao_response(res_dict_inv)
-    
-    #item_list = item_list_onsale + item_list_inv
-    
     get_items_method = 'taobao.items.get'
     get_items_fields = 'num_iid'
-    res_dict = call_taobao_api(get_items_method, fields=get_items_fields, nicks=nick, page_size=page_size)
-    item_list = read_taobao_response(res_dict)
+    item_list = call_taobao_api(get_items_method, fields=get_items_fields, nicks=nick, page_size=page_size)
+    #item_list = read_taobao_response(res_dict)
     items_len = len(item_list)
     group_count = items_len / 20
     current_num = 0
@@ -80,8 +68,8 @@ def sync_items_data(session, nick):
             num_iids = ""
             for item in item_list:
                 num_iids = num_iids + str(item['num_iid']) + ','
-            res_data = call_taobao_api(items_list_method, fields=items_list_fields, session=session, num_iids=num_iids)
-            items_list_data = read_taobao_response(res_data)
+            items_list_data = call_taobao_api(items_list_method, fields=items_list_fields, session=session, num_iids=num_iids)
+            #items_list_data = read_taobao_response(res_data)
             sql_lists = []
             for item_list in items_list_data:
                 sqlstore_list = [
@@ -118,8 +106,8 @@ def sync_items_data(session, nick):
 def sync_auth_data(session, user_name):
     itemcats_method = 'taobao.itemcats.authorize.get'
     itemcats_fields = 'brand.vid,brand.name,brand.pid,brand.prop_name,item_cat.cid,item_cat.name,item_cat.status,item_cat.sort_order,item_cat.parent_cid,item_cat.is_parent'
-    res_data = call_taobao_api(itemcats_method, fields=itemcats_fields, session=session)
-    data_list = read_taobao_response(res_data)
+    data_list = call_taobao_api(itemcats_method, fields=itemcats_fields, session=session)
+    #data_list = read_taobao_response(res_data)
     item_cat_list = data_list['item_cats']['item_cat'] if 'item_cat' in data_list['item_cats'].keys() else []
     item_brand_list = data_list['brands']['brand'] if 'brand' in data_list['brands'].keys() else []
     cat_sqlstore = []
@@ -154,8 +142,8 @@ def sync_auth_data(session, user_name):
 
 def sync_seller_cat(nick):
     method_name = 'taobao.sellercats.list.get'
-    res_data = call_taobao_api(method_name, nick=nick)
-    seller_cat_list = read_taobao_response(res_data)
+    seller_cat_list = call_taobao_api(method_name, nick=nick)
+    #seller_cat_list = read_taobao_response(res_data)
     if seller_cat_list:
         seller_cat_sqlstore = []
         for seller_cat in seller_cat_list:
@@ -173,3 +161,50 @@ def sync_seller_cat(nick):
         return res_insert_cat
     else:
         return -1
+
+def sync_trades(session, nick):
+    store_list = []
+    has_next = True
+    method_name = 'taobao.trades.sold.get'
+    page_size = '100'
+    page_no = 1
+    fields = 'tid,num,num_iid,status,type,price,title,point_fee,created,pay_time,end_time,buyer_nick,payment,seller_nick,consign_time,buyer_message,post_fee,seller_alipay_no,receiver_name,receiver_state,receiver_city,receiver_district,receiver_address,receiver_zip,seller_alipay_no,seller_mobile,seller_name,seller_email,shipping_type'
+    while(has_next):
+        trade_list = call_taobao_api(method_name, fields=fields, session=session, page_size=page_size, page_no=str(page_no))
+        #trade_list = read_taobao_response(res_data)
+        for trade in trade_list[0]:
+            sqlstore = [
+                    trade['tid'],
+                    trade['num'],
+                    trade['num_iid'],
+                    trade['status'],
+                    trade['title'],
+                    trade['buyer_nick'],
+                    trade['type'],
+                    trade['price'],
+                    trade['point_fee'],
+                    trade['created'],
+                    trade['pay_time'] if 'pay_time' in trade.keys() else '0000-00-00 00:00:00',
+                    trade['end_time'] if 'end_time' in trade.keys() else '0000-00-00 00:00:00',
+                    trade['payment'],
+                    trade['consign_time'] if 'consign_tiem' in trade.keys() else '0000-00-00 00:00:00',
+                    trade['buyer_message'] if 'buyer_message' in trade.keys() else "",
+                    trade['post_fee'],
+                    trade['seller_alipay_no'],
+                    trade['seller_name'],
+                    trade['seller_mobile'],
+                    trade['seller_email'],
+                    trade['receiver_name'],
+                    trade['receiver_state'],
+                    trade['receiver_city'],
+                    trade['receiver_district'],
+                    trade['receiver_address'],
+                    trade['receiver_zip'],
+                    trade['shipping_type'],
+                    nick,
+            ]
+            store_list.append(sqlstore)
+            has_next = trade_list[1]
+            page_no = page_no + 1
+    res_insert_trades = taobao_trades_insert(store_list)
+    return res_insert_trades
